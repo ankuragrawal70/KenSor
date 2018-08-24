@@ -1,0 +1,22 @@
+def clean(ele):
+    word=""
+    for e in ele:
+        if e.isalpha():
+            word=word+e
+    return word
+
+
+
+main_path="D://Thesis//data//exported_data//indian category with count greater than 100"
+f=open(main_path+".CSV","rb")
+main_category=csv.reader(f,delimiter=';')
+rows=list(main_category)
+main_cat={}
+for row in rows:
+    #x=row[0].split(";")
+    main_cat[row[0]=row[1]
+    #e=clean(x[0])
+    #e=x[0].replace("!@#$%^&*()[]{};:,./<>?\|`~-=_+-", "")
+    check_for_parent(e,x[0])
+
+print main_cat

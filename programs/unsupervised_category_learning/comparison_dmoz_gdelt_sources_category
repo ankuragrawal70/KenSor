@@ -1,0 +1,64 @@
+
+import MySQLdb
+import gexf
+import networkx as nx
+import wikipedia
+import difflib
+import operator
+import socket
+import os
+import urllib2, httplib
+from bs4 import BeautifulSoup
+
+def gdelt_source_category_fetcher():
+    gdelt_path='D://Thesis//data//domain_name//category_gdelt//'
+    file_list=os.listdir(gdelt_path)
+    for i in range(1,len(file_list)):
+        p=gdelt_path+file_list[i]
+        f=open(p,'r')
+        c_info=eval(f.read())
+        """if len(c_info)>0:
+            f_name='http://'+file_list[i].rstrip('.txt')
+            #print f_name
+            for e in c_info:
+                if f_name in domain:
+                    info=domain[f_name]
+                    category_domain_info(e,info)
+                else:
+                    info={}
+                    category_domain_info(e,info)
+                    domain[f_name]=info"""
+        lines=c_info.keys()
+        gdelt_domain[file_list[i].rstrip('.txt')]=lines
+        f.close()
+        if i==5:
+            print gdelt_domain
+
+def dmoz_source_category_fetcher():
+    dmoz_cat_path='D://Thesis//data//domain_name//sources_in_dmoz//'
+    file_list=os.listdir(dmoz_cat_path)
+    for file in file_list:
+        f_path=dmoz_cat_path+file
+        f=open(f_path,'r')
+        lines=f.read().split('\n')
+        dmoz_domain_path[file.rstrip('.txt')]=lines
+
+
+gdelt_domain={}
+dmoz_domain_path={}
+gdelt_source_category_fetcher()
+dmoz_source_category_fetcher()
+while True:
+    try:
+        source=raw_input("Enter the news sources")
+        if source in dmoz_domain_path:
+            print 'using dmoz category is\n',dmoz_domain_path[source]
+        else:
+            print 'source not found in dmoz\n'
+        if source in gdelt_domain:
+            print '\n using dgelt category path\n',gdelt_domain[source]
+        else:
+            print 'source not found in gdelt\n'
+    except:
+        print 'errror occured'
+        pass
